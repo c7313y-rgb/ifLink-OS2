@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ifLink Quest｜共創DX人材育成OS</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="mark"><span>ifLink</span><b>DX OS</b></div>
+      <div><p>共創DX人材育成OS</p><h1>IF-THENカード実装版</h1></div>
+    </div>
+    <nav>
+      <a href="#dashboard">Dashboard</a><a href="#quest">Quest</a><a href="#cards">Cards</a><a href="#builder">Builder</a><a href="#cms">CMS</a><a href="#report">Report</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="pill">学校教材 × 企業DX研修 × PoC創出</p>
+        <h2>現場課題を、IF-THENカードで<br>「使えるDXアイデア」に変換する。</h2>
+        <p class="lead">IFカードは条件・検知、THENカードは実行・通知・制御。カードを選択して組み合わせるだけで、課題解決レシピ、PoC企画、研修ログ、VOCまで生成できます。</p>
+        <div class="actions"><button class="primary" data-scroll="builder">カードを組み合わせる</button><button id="openPackBtn">カードパック開封</button><button id="resetBtn" class="ghost">初期化</button></div>
+      </div>
+      <div class="hero-board">
+        <div class="flow-card if">IF<br><small>検知・条件</small></div><span>→</span><div class="flow-card os">OS<br><small>判断・設計</small></div><span>→</span><div class="flow-card then">THEN<br><small>実行・制御</small></div><span>→</span><div class="flow-card asset">PoC<br><small>実証・発表</small></div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="metrics">
+      <article><span>EX POINT</span><strong id="points">0</strong><small>カード利用・PoC生成で加算</small></article>
+      <article><span>使用可能カード</span><strong id="usableCount">0</strong><small>IF / THEN / ASSET</small></article>
+      <article><span>選択中レシピ</span><strong id="recipeCount">0</strong><small>IF + THEN + ASSET</small></article>
+      <article><span>PoC候補</span><strong id="ideaCount">0</strong><small>生成済みアイデア</small></article>
+    </section>
+
+    <section id="quest" class="panel">
+      <div class="section-head"><p>01｜Quest</p><h3>課題カードを選択</h3><button id="randomQuestBtn">ランダム出題</button></div>
+      <div class="quest-grid" id="questGrid"></div>
+    </section>
+
+    <section id="cards" class="panel">
+      <div class="section-head"><p>02｜Digital IF-THEN Cards</p><h3>クリックでカードを選択。IF/THENカードとして実際に使えます。</h3><div class="toolbar"><button class="filter active" data-filter="ALL">ALL</button><button class="filter" data-filter="IF">IF</button><button class="filter" data-filter="THEN">THEN</button><button class="filter" data-filter="ASSET">ASSET</button><input id="search" placeholder="カード検索" /></div></div>
+      <div class="card-grid" id="cardGrid"></div>
+    </section>
+
+    <section id="builder" class="panel builder-panel">
+      <div class="section-head"><p>03｜IF-THEN Builder</p><h3>選択カードを使ってソリューションを発動</h3><button id="clearSelectionBtn">選択解除</button></div>
+      <div class="builder-layout">
+        <aside class="recipe">
+          <h4>現在のレシピ</h4>
+          <div class="slot"><b>課題</b><span id="slotQuest">未選択</span></div>
+          <div class="slot"><b>IF</b><span id="slotIf">未選択</span></div>
+          <div class="slot"><b>THEN</b><span id="slotThen">未選択</span></div>
+          <div class="slot"><b>ASSET</b><span id="slotAsset">任意</span></div>
+          <button class="primary wide" id="generateBtn">ソリューション / PoC生成</button>
+        </aside>
+        <div class="simulation">
+          <div class="sim-stage" id="simStage"><div class="node if">IF</div><i></i><div class="node os">THINK</div><i></i><div class="node then">THEN</div><i></i><div class="node poc">PoC</div></div>
+          <article class="output" id="solution"><h4>生成結果</h4><p>課題カード、IFカード、THENカードを選ぶと、ここに解決レシピが表示されます。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cms" class="panel">
+      <div class="section-head"><p>04｜Card CMS</p><h3>企業テーマ・自社アセット・独自IF/THENカードを追加</h3></div>
+      <form id="cardForm" class="cms-form">
+        <select name="type"><option value="IF">IFカード</option><option value="THEN">THENカード</option><option value="ASSET">ASSETカード</option><option value="QUEST">課題カード</option></select>
+        <input name="title" required placeholder="カード名 例：温度が閾値を超えたら" />
+        <input name="domain" required placeholder="領域 例：製造・介護・観光" />
+        <textarea name="desc" required placeholder="カード説明・条件・実行内容"></textarea>
+        <button class="primary">カードを追加</button>
+      </form>
+    </section>
+
+    <section id="report" class="panel">
+      <div class="section-head"><p>05｜Report</p><h3>PoC企画書・研修ログを出力</h3><button id="downloadBtn">Markdown出力</button></div>
+      <pre id="reportBox"></pre>
+    </section>
+  </main>
+
+  <div id="toast"></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
